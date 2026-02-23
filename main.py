@@ -11,8 +11,10 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Everything else here:
+# Everything else here
 print("Hello world")
+
+# TODO: Pelikoodi tähän
 
 # Close session
 session.close()
