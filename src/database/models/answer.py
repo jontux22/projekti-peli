@@ -1,8 +1,11 @@
-from sqlalchemy import String
+from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.models.base import Base
-from src.database.models.question import Question
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.database.models.question import Question
 
 
 class Answer(Base):
@@ -14,9 +17,8 @@ class Answer(Base):
 
     correct: Mapped[bool]
 
-    question: Mapped["Question"] = relationship(
-        back_populates="answer", cascade="all, delete-orphan"
-    )
+    question_id: Mapped[int] = mapped_column(ForeignKey("question.id"))
+    question: Mapped["Question"] = relationship(back_populates="answers")
 
     def __repr__(self) -> str:
         return f"Answer(id={self.id!r}, answer={self.answer!r}, correct={self.correct!r})"

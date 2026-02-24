@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\kalle\Documents\Ohjelmisto 1\projekti-peli\sqlite\sqlite.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="identifier.sqlite" uuid="3d29c2c8-6cf2-48bc-8a62-9d41d1d0d391">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
