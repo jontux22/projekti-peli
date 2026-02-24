@@ -3,6 +3,8 @@ from sqlalchemy.orm import sessionmaker
 from src.database.db import engine
 from src.database.models.base import Base
 
+from src.game.main_menu import run_main_menu
+
 
 # Create all tables in the database
 Base.metadata.create_all(engine)
@@ -11,20 +13,17 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Everything else here
-print("Haluatko insinööriksi?\n\n")
-print("""Valitse numerolla ja paina enter
-1. Uusi peli
-2. Leaderboard
-3. Lisää kysymys
-4. Lopeta peli""")
-
-int(input())
-
 # TODO: Pelikoodi tähän
-while True:
-    # Jotain jotain
-    pass
+running = True
+
+
+def quit_game():
+    global running
+    running = False
+
+
+while running:
+    run_main_menu()
 
 # Close session
 session.close()
