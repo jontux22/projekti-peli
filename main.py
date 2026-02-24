@@ -19,7 +19,6 @@ running = True
 while running:
     if not run_main_menu():
         running = False
-    # TODO: Everything
 
 # Close session
 session.close()
