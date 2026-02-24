@@ -6,10 +6,10 @@ from src.game.leaderboard import run_leaderboard
 def run_main_menu():
     print("Haluatko insinööriksi?\n")
     print("""Valitse numerolla ja paina enter
-    1. Uusi peli
-    2. Leaderboard
-    3. Lisää kysymys
-    4. Lopeta peli""")
+1. Uusi peli
+2. Leaderboard
+3. Lisää kysymys
+4. Lopeta peli""")
 
     selection = int(input("Valitse: "))
 
