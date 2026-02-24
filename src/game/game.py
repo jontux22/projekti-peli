@@ -6,6 +6,7 @@ def run_new_game():
 
 def select_category() -> str:
     # TODO: Hae kategoriat ja valitse
+    # Morjesta T. Hade
     # Vaatimukset:
     # Käytä SQLAlchemy kirjastoa hakeaksesi kategoriat, käytä luokkaa "Question" src.database.models.question
     # listaa numeroituna, pyydä käyttäjää valitsemaan kategoria, palauta kategoria str returnilla
