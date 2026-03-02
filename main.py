@@ -40,7 +40,7 @@ session = Session()
 running = True
 
 while running:
-    if not run_main_menu(session): # Annetaan session mukaan
+    if not run_main_menu(session):  # Annetaan session mukaan
         running = False
 
 # Close session
