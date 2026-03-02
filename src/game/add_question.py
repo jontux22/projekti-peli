@@ -1,5 +1,6 @@
 from src.database.models import Question, Answer
 
+
 def run_add_question(session):
     # TODO: Koodaa funktio jolla käyttäjä voi lisätä databaseen uuden kysymyksen
     # Vaatimukset: Pyydä käyttäjää syöttämään kysymys,
