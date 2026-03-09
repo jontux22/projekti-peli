@@ -42,9 +42,8 @@ def run_new_game():
     game.get_questions_and_answers()
 
 
-def select_category() -> str:
+def select_category(session) -> str:
 
-    session = sessionmaker(bind=engine)
     with session() as session:
         query = select(Question.category).distinct()
         categories = session.execute(query).scalars().all()
