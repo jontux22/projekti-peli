@@ -48,6 +48,11 @@ class Game:
         pass
 
     def lifeline_skip_question(self):
+        """Used to skip the current question."""
+        if not self.used_lifelines["skip"]:
+            self.used_lifelines["skip"] = True
+            return True
+        return False
         pass
 
 
