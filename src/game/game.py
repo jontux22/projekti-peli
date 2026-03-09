@@ -43,8 +43,32 @@ def run_new_game():
 
 
 def select_category() -> str:
+
+    session = sessionmaker(bind=engine)
+    with session() as session:
+        query = select(Question.category).distinct()
+        categories = session.execute(query).scalars().all()
+
+    options = list(categories)
+    options.append("Kaikki kategoriat")
+
+    print("\n--- Valitse kategoria ---")
+    for i, cat in enumerate(options, 1):
+        print(f"{i}. {cat}")
+
+    while True:
+        try:
+            choice = int(input("Valitse numero: "))
+            if 1 <= choice <= len(options):
+                selected = options[choice - 1]
+                print(f"Valitsit: {selected}\n")
+                return selected
+            else:
+                print("Virheellinen numero, yritä uudelleen. ")
+        except ValueError:
+            print("Syötä vain numeroita. ")
+
     # TODO: Hae kategoriat ja valitse
-    # Morjesta T. Hade
     # Vaatimukset:
     # Käytä SQLAlchemy kirjastoa hakeaksesi kategoriat, käytä luokkaa "Question" src.database.models.question
     # listaa numeroituna, pyydä käyttäjää valitsemaan kategoria, palauta kategoria str returnilla
