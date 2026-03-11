@@ -1,4 +1,8 @@
-from sqlalchemy import insert
+import ast
+import csv
+import logging
+
+from sqlalchemy import insert, delete, select
 from unicodedata import category
 
 from sqlalchemy.orm import sessionmaker
@@ -16,6 +20,10 @@ Base.metadata.create_all(engine)
 # Create a session
 Session = sessionmaker(bind=engine)
 session = Session()
+
+# Disable logging
+logging.getLogger('sqlalchemy.engine.Engine').disabled = True
+
 
 # Testidatan lisäys
 # questions = [
@@ -35,6 +43,53 @@ session = Session()
 #
 # session.add_all(questions)
 # session.commit()
+
+# Vibekoodattu importteri :)
+# def import_questions_from_csv(
+#     session: Session,
+#     questions_csv_path: str,
+#     answers_csv_path: str,
+# ):
+#     session.execute(delete(Answer))
+#     session.execute(delete(Question))
+#     session.commit()
+#
+#     questions = []
+#     with open(questions_csv_path, newline="", encoding="cp1252") as file:
+#         reader = csv.reader(file, delimiter=";")
+#
+#         for row in reader:
+#             question = Question(
+#                 id=int(row[0]),
+#                 question=row[1],
+#                 difficulty=int(row[2]),
+#                 category=row[3],
+#             )
+#             questions.append(question)
+#
+#     session.add_all(questions)
+#     session.commit()
+#
+#     answers = []
+#     with open(answers_csv_path, newline="", encoding="utf-8-sig") as file:
+#         reader = csv.reader(file, delimiter=";")
+#
+#         for row in reader:
+#             answer = Answer(
+#                 id=int(row[0]),
+#                 answer=row[1],
+#                 correct=row[2].strip().lower() in ("true", "1", "yes"),
+#                 question_id=int(row[3]),
+#             )
+#             answers.append(answer)
+#
+#     session.add_all(answers)
+#     session.commit()
+#
+#
+# import_questions_from_csv(session,
+#                           "C:/Users/kalle/PycharmProjects/projekti-peli/data/tietovisapeli_kysymykset.csv",
+#                           "C:/Users/kalle/PycharmProjects/projekti-peli/data/tietovisapeli_vastaus.csv")
 
 # TODO: Pelikoodi tähän
 running = True

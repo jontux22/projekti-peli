@@ -1,79 +1,135 @@
+import random
 from typing import List
 
 from sqlalchemy import select
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, selectinload
 
 from src.database.db import engine
-from src.database.models import Question
+from src.database.models import Question, Score
 
 
 class Game:
     def __init__(self, name: str, category: str):
-        self.name = name
-        self.category = category
+        self.name: str = name
+        self.category: str = category
+        self.used_lifelines: List[str] = []
+        self.questions = []
+        self.question_count: int = 8
+        self.current_question = None
+        self.score = 0
 
         # Get SQLAlchemy session
         Session = sessionmaker(bind=engine)
         session = Session()
         self.session = session
 
-    def get_questions_and_answers(self, limit: int = 10) -> List[Question]:
-        # TODO: SQLAlchemy query for questions of given category
-        # Jos joku viisas keksii miten queryyn ne järkevästi ni saa tehä :D
+    def get_questions_and_answers(self, limit: int = 8):
+        # Query to get questions with answers limited to "limit"
         query = (
             select(Question)
             .where(Question.category == self.category)
-            .join(Question.answers)
+            .options(selectinload(Question.answers))
             .order_by(Question.id)
+            .limit(limit)
         )
 
-        results = self.session.execute(query).all()
-        print(results)
-        return results
+        questions = self.session.scalars(query).all()
 
-    def run_question(self, timer):
-        # Näytä kysymys, käynnistä ajastin yms
-        pass
+        # Save questions into more easily usable list form
+        for question in questions:
+            self.questions.append({
+                "id": question.id,
+                "question": question.question,
+                "difficulty": question.difficulty,
+                "answers": [{"id": answer.id, "answer": answer.answer, "correct": answer.correct} for answer in question.answers]
+            })
 
-    def add_time(self, timer):
-        pass
+        self.current_question = {"index": 0, "data": self.questions[0]}
 
-    def lifeline_fiftyfifty(self):
-        pass
+    def run_question(self):
+        print(f"Kysymys {self.current_question["index"] + 1}/{len(self.questions)}: {self.current_question["data"]['question']}")
+        print("_"*30)
 
-    def lifeline_add_time(self):
-        pass
+        for key, answer in enumerate(self.current_question["data"]["answers"], 1):
+            print(f"{key}: {answer["answer"]}")
 
-    def lifeline_extra_guess(self):
-        pass
+        # Ask for answer, check correct or incorrect or lifelines
+        while True:
+            try:
+                user_answer_index = int(input("Anna vastausnumero: ")) - 1
+                if 0 <= user_answer_index < len(self.current_question["data"]["answers"]):
+                    break
+                else:
+                    print("Anna kelvollinen vastausnumero")
+            except ValueError:
+                print('Anna kelvollinen vastaus')
 
-    def lifeline_skip_question(self):
-        """Used to skip the current question."""
-        if not self.used_lifelines["skip"]:
-            self.used_lifelines["skip"] = True
-            return True
-        return False
-        pass
+        if self.current_question["data"]["answers"][user_answer_index]["correct"]:
+            print("Oikein!")
+            self.score += self.current_question["data"]["difficulty"]
+            print(f"Pisteesi ovat: {self.score}")
+        else:
+            print("Väärin!")
+            print(f"Pisteesi ovat: {self.score}")
+
+        if self.current_question["index"] + 1 < len(self.questions):
+            self.current_question = {"index": self.current_question["index"] + 1,
+                                     "data": self.questions[self.current_question["index"] + 1]}
+        else:
+            # TODO: Kierros suoritettu mitä tapahtuu?
+            pass
+
+    # TODO: Oispa aikaa tehä :)
+    # def lifeline_fiftyfifty(self):
+    #     if not self.used_lifelines["fifty_fifty"]:
+    #         print("Olet jo kayttanyt 50/50 lifelinen")
+    #         return
+    #     pass
+    #
+    # def lifeline_extra_guess(self):
+    #     if not self.used_lifelines["extra_guess"]:
+    #         self.used_lifelines["extra_guess"] = True
+    #         return True
+    #     return False
+    #
+    # def lifeline_skip_question(self):
+    #     """Used to skip the current question."""
+    #     if not self.used_lifelines["skip"]:
+    #         self.used_lifelines["skip"] = True
+    #         self.questions += 1
+    #         return True
+    #     return False
 
 
-def run_new_game():
-    # TODO: Koodaa funktioon mitä tapahtuu kun valikosta valitaan uusi peli
-    # Kalle voi vastata tästä
+def run_new_game(session):
     name: str = input("Kirjoita nimesi: ")
-    category: str = select_category()
+    category: str = select_category(session)
 
     game = Game(name, category)
     game.get_questions_and_answers()
 
+    while game.question_count > 0:
+        game.run_question()
+        game.question_count = game.question_count - 1
+
+    print("_"*30)
+    print(f"Peli päättyi! Lopulliset pisteesi ovat {game.score}!\n")
+
+    # End game and save score to leaderboard
+    add_to_leaderboard = Score(
+        name=game.name,
+        score=game.score
+    )
+
+    session.add(add_to_leaderboard)
+    session.commit()
+
 
 def select_category(session) -> str:
-
-    with session() as session:
-        query = select(Question.category).distinct()
-        categories = session.execute(query).scalars().all()
+    query = select(Question.category).distinct()
+    categories = session.execute(query).scalars().all()
 
     options = list(categories)
-    options.append("Kaikki kategoriat")
 
     print("\n--- Valitse kategoria ---")
     for i, cat in enumerate(options, 1):
@@ -90,10 +146,3 @@ def select_category(session) -> str:
                 print("Virheellinen numero, yritä uudelleen. ")
         except ValueError:
             print("Syötä vain numeroita. ")
-
-    # TODO: Hae kategoriat ja valitse
-    # Vaatimukset:
-    # Käytä SQLAlchemy kirjastoa hakeaksesi kategoriat, käytä luokkaa "Question" src.database.models.question
-    # listaa numeroituna, pyydä käyttäjää valitsemaan kategoria, palauta kategoria str returnilla
-    # muista myös vaihtoehto "kaikki kategoriat", tällöin funktio voisi palauttaa esim "kaikki"
-    # https://docs.sqlalchemy.org/en/20/orm/quickstart.html#simple-select

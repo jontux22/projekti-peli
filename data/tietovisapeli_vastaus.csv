@@ -1,0 +1,205 @@
+﻿1;Ei ole;true;1
+2;Ehkä on;false;1
+3;Ehdottomasti;false;1
+4;Tottakai;false;2
+5;Viel ehtii;false;2
+6;Ei tietenkään;true;2
+7;1939;true;3
+8;1938;false;3
+9;1937;false;3
+10;Sinivalas;true;4
+11;Norsu;false;4
+12;Virtahepo;false;4
+13;Kirahvi;false;4
+14;Atlantin valtameri;false;5
+15;Intian valtameri;false;5
+16;Tyynimeri;true;5
+17;Jäämeri;false;5
+18;Wolfgang Amadeus Mozart;false;6
+19;Ludwig van Beethoven;true;6
+20;Johann Sebastian Bach;false;6
+21;Frédéric Chopin;false;6
+22;Caracas;true;7
+23;Sucre;false;7
+24;Medellin;false;7
+25;Montevideo;false;7
+26;Ensimmäisen maailmansodan;true;8
+27;Toisen maailmansodan;false;8
+28;Ranskan sisällissodan;false;8
+29;Kylmän sodan;false;8
+30;Moldova;false;9
+31;Liettua;false;9
+32;Bulgaria;true;9
+33;Armenia;false;9
+34;Golden State Warriors;false;10
+35;Toronto Raptors;true;10
+36;Boston Celtics;false;10
+37;LA Lakers;false;10
+38;2005;false;11
+39;2006;false;11
+40;2003;true;11
+41;2007;false;11
+42;9;false;12
+43;8;true;12
+44;7;false;12
+45;6;false;12
+46;Andorra;false;13
+47;San Marino;false;13
+48;Monaco;false;13
+49;Vatikaani;true;13
+50;Espanja;false;14
+51;Argentiina;false;14
+52;Brasilia;true;14
+53;USA;false;14
+54;kanandalainen;false;15
+55;amerikkalainen;false;15
+56;australialainen;false;15
+57;uusi seelantilainen;true;15
+58;Doom;false;16
+59;Uncharted 4;false;16
+60;Overwatch;true;16
+61;Titanfall 2;false;16
+62;Ilves;false;17
+63;Karhu;true;17
+64;Hirvi;false;17
+65;Poro;false;17
+66;Caligula;false;18
+67;Nero;false;18
+68;Augustus;true;18
+69;TItus;false;18
+70;Iraq;false;19
+71;Turkki;false;19
+72;Iran;true;19
+73;Saudi-arabia;false;19
+74;englanti;false;20
+75;espanja;false;20
+76;ameriikka;false;20
+77;ei mikään niistä;true;20
+78;Madagascar;false;21
+79;Iceland;false;21
+80;Greenland;true;21
+81;Little Saint James;false;21
+82;Oblivion;false;22
+83;Skyrim;true;22
+84;Morrowind;false;22
+85;Daggerfall;false;22
+86;amerikkalainen;false;23
+87;japanilainen;false;23
+88;etelä-korealainen;true;23
+89;ranskalainen;false;23
+90;Mission Impossible 3;false;24
+91;Mission impossible Fallout;false;24
+92;Mission impossible 2;false;24
+93;Mission impossible Ghost Protocol;true;24
+94;Japani;false;25
+95;Etelä-Korea;false;25
+96;Kiina;false;25
+97;Taiwan;true;25
+98;Krakova;false;26
+99;Varsova;true;26
+100;Katowice;false;26
+101;Lublin;false;26
+102;Seine;false;27
+103;Volga;true;27
+104;Tonava;false;27
+105;Thames;false;27
+106;kenguru;false;28
+107;emu;true;28
+108;koala;false;28
+109;alligaattori;false;28
+110;Iho;true;29
+111;suolisto;false;29
+112;keuhkot;false;29
+113;maksa;false;29
+114;koira;false;30
+115;apina;false;30
+116;hedelmäkärpänen;true;30
+117;mato;false;30
+118;antilooppi;false;31
+119;virtahepo;true;31
+120;maasika;false;31
+121;zeebra;false;31
+122;Mesopotamian;true;32
+123;Antiikin Kreikan;false;32
+124;Asteekkien;false;32
+125;Rooman;false;32
+126;Ottomaanien ;false;33
+127;Persian;false;33
+128;Mongolian;true;33
+129;Ming-dynastiaa;false;33
+130;Saint Helena;true;34
+131;Malta;false;34
+132;Corsica;false;34
+133;Elba;false;34
+134;Argenttiina;false;35
+135;Brasilia;true;35
+136;Italia;false;35
+137;Saksa;false;35
+138;Pete Sampras;false;36
+139;Roger Federer;false;36
+140;Rafael Nadal;false;36
+141;Novak Djokovic;true;36
+142;300;true;37
+143;250;false;37
+144;320;false;37
+145;280;false;37
+146;Usain Bolt;false;38
+147;Larisa Latynina;false;38
+148;Paavo Nurmi;false;38
+149;Michael Phelps;true;38
+150;Wii;false;39
+151;Gameboy;false;39
+152;Playstation 2;true;39
+153;Nintendo DS;false;39
+154;Matthew McConaughey;false;40
+155;Kevin Spacey;false;40
+156;Bryan Cranston;true;40
+157;Michael Shannon;false;40
+158;Celeste;false;41
+159;Hollow Knight;false;41
+160;Undertale;true;41
+161;Stardew Valley;false;41
+162;Hans Zimmer;false;42
+163;Nobuo Uematsu;false;42
+164;Koji Kondo;false;42
+165;Martin O'Donnell;true;42
+166;Myanmar;false;43
+167;Bhutan;true;43
+168;Brunei;false;43
+169;Nepal;false;43
+170;Rhine;false;44
+171;Niili;false;44
+172;Amazon;false;44
+173;Danube;true;44
+174;Vitamiini A;false;45
+175;Vitamiini K;false;45
+176;Vitamiini B;false;45
+177;Vitamiini D;true;45
+178;Jättiläiskilpikonna;false;46
+179;Koi ;false;46
+180;Grönlanninhai;true;46
+181;Komodovaraani;false;46
+182;Kobe Bryant;false;47
+183;Michael Jordan;false;47
+184;Wilt Chamberlain;true;47
+185;Lebron James;false;47
+186;George Weah;true;48
+187;Jay Jay Okocha;false;48
+188;Didier Drogba;false;48
+189;Samuel Eto'o;false;48
+190;Australia;false;49
+191;South Africa;true;49
+192;New Zealand;false;49
+193;England;false;49
+194;Tiikeri;false;50
+195;Leijona;false;50
+196;Gepardi;true;50
+197;Antilooppi;false;50
+198;Koala;false;51
+199;Laiskiainen;true;51
+200;Hidaslori;false;51
+201;Merilehmä;false;51
+202;Babylon;false;52
+203;Assyria;false;52
+204;Akkad;false;52
+205;Uruk;true;52
