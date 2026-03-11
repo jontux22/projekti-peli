@@ -33,7 +33,8 @@ class Game:
             .limit(limit)
         )
 
-        questions = self.session.scalars(query).all()
+        questions = list(self.session.scalars(query).all())
+        random.shuffle(questions)   # Shuflaa kysymykset jotta tulisi varianssia
 
         # Save questions into more easily usable list form
         for question in questions:
@@ -56,7 +57,17 @@ class Game:
         # Ask for answer, check correct or incorrect or lifelines
         while True:
             try:
-                user_answer_index = int(input("Anna vastausnumero: ")) - 1
+                user_input = input("Anna vastausnumero tai lifeline: ").strip().lower()
+                if user_input == "lifeline":
+                    remaining = self.lifeline_fiftyfifty(self.current_question["index"])
+                    if remaining:
+                        self.current_question["data"]["answers"] = remaining
+                        print("\n 50/50 käytetty!")
+                        for key, answer in enumerate(remaining, 1):
+                            print(f"{key}: {answer['answer']}")
+                    continue
+
+                user_answer_index=int(user_input) - 1
                 if 0 <= user_answer_index < len(self.current_question["data"]["answers"]):
                     break
                 else:
@@ -79,11 +90,23 @@ class Game:
             # TODO: Kierros suoritettu mitä tapahtuu?
             pass
 
-    # TODO: Oispa aikaa tehä :)
-    # def lifeline_fiftyfifty(self):
-    #     if not self.used_lifelines["fifty_fifty"]:
-    #         print("Olet jo kayttanyt 50/50 lifelinen")
-    #         return
+    def lifeline_fiftyfifty(self, question_index: int):
+        if "fifty_fifty" in self.used_lifelines:
+            print("Olet jo käyttänyt 50/50 lifelinen")
+            return None
+
+        self.used_lifelines.append("fifty_fifty")
+
+        question = self.questions[question_index]
+        answers = question["answers"]
+        correct = [a for a in answers if a["correct"]]
+        incorrect = [a for a in answers if not a["correct"]]
+        remaining_wrong = random.choice(incorrect)
+        remaining_answers = correct + [remaining_wrong]
+        random.shuffle(remaining_answers)
+        return remaining_answers
+
+    # TODO: Oispa aikaa tehä
     #     pass
     #
     # def lifeline_extra_guess(self):
