@@ -116,12 +116,20 @@ def run_new_game(session):
     print(f"Peli päättyi! Lopulliset pisteesi ovat {game.score}!\n")
 
     # End game and save score to leaderboard
-    add_to_leaderboard = Score(
-        name=game.name,
-        score=game.score
-    )
+    stmt_scheck = select(Score).where(Score.name == game.name)
+    existing_entry = session.execute(stmt_scheck).scalar_one_or_none()
 
-    session.add(add_to_leaderboard)
+    if existing_entry:
+        if game.score > existing_entry.score:
+            existing_entry.score = game.score
+
+    else:
+        add_to_leaderboard = Score(
+            name=game.name,
+            score=game.score
+        )
+        session.add(add_to_leaderboard)
+
     session.commit()
 
 
